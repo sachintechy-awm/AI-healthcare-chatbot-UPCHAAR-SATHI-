@@ -1,0 +1,59 @@
+{% extends "chatbot/base.html" %}
+{% block title %}{% if mode == 'signup' %}Sign up{% else %}Log in{% endif %} · UPCHAR SATHI{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="38" height="38">
+          <path d="M24 4c7 6 16 10 16 20 0 11-9 20-16 20S8 35 8 24C8 14 17 10 24 4Z" fill="var(--mint)"/>
+          <path d="M24 15v18M15.5 24h17" stroke="var(--primary)" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div>
+        <p class="brand-name">UPCHAR SATHI</p>
+        <p class="brand-tagline">उपचार साथी · your symptom companion</p>
+      </div>
+    </div>
+
+    <h1 class="auth-title">
+      {% if mode == 'signup' %}Create your account{% else %}Welcome back{% endif %}
+    </h1>
+    <p class="auth-subtitle">
+      {% if mode == 'signup' %}
+        Sign up to save your chat history and get context-aware answers.
+      {% else %}
+        Log in to pick up where you left off.
+      {% endif %}
+    </p>
+
+    {% if form.non_field_errors %}
+      <div class="auth-error">{{ form.non_field_errors.0 }}</div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      {% for field in form %}
+        <label class="auth-field">
+          <span>{{ field.label }}</span>
+          {{ field }}
+          {% if field.errors %}<small class="auth-error">{{ field.errors.0 }}</small>{% endif %}
+          {% if field.help_text %}<small class="auth-hint">{{ field.help_text|safe }}</small>{% endif %}
+        </label>
+      {% endfor %}
+      <button type="submit" class="auth-submit">
+        {% if mode == 'signup' %}Create account{% else %}Log in{% endif %}
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      {% if mode == 'signup' %}
+        Already have an account? <a href="{% url 'chatbot:login' %}">Log in</a>
+      {% else %}
+        New here? <a href="{% url 'chatbot:signup' %}">Create an account</a>
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endblock %}
