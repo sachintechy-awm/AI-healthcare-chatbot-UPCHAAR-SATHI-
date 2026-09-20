@@ -1,4 +1,6 @@
 # UPCHAR SATHI 🌿 — AI Healthcare Chatbot
+<h1>Demo link</h1>
+<h3>https://stech.pythonanywhere.com/</h3>
 
 UPCHAR SATHI ("treatment companion") is a Django web app that lets anyone
 describe their symptoms in plain language and get back:
